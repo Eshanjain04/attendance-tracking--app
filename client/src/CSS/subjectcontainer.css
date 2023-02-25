@@ -1,0 +1,61 @@
+.subject-container-wrapper{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.subject-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin:50px;
+    border-radius: 10px;
+    padding: 0 5px;
+}
+
+.class-details{
+    display: flex;
+    flex-direction: column;
+}
+
+.btns{
+    text-align: center;
+    height: 40px;
+    width: 60px;
+    border-radius: 20px;
+    font-size: 15px;
+    background-color: rgb(240, 237, 237);  
+}
+
+.delete-button{
+    padding-top: 8px;
+}
+
+.delete-button:hover{
+    cursor: pointer;
+    background-color: rgb(201, 201, 201); 
+}
+
+@media screen and (max-width:480px){
+    .class-details{
+        display: none;
+    }
+
+    .subject-container{
+        width: 80%;
+        margin:10px auto;
+        align-items: center;
+    }
+
+    .btns{
+        height: 30px;
+        width: 50px;
+        font-size: 15px;  
+    }
+
+    .delete-button{
+        padding-top: 2px;
+    }
+}
