@@ -18,7 +18,7 @@ const Main = () => {
     const addSubject = async (e)=>{
         e.preventDefault();
         const subject = addSubjectRef.current.value;
-        const data = await fetch("https://attendance-tracker04.herokuapp.com/subject/add",{
+        const data = await fetch("https://attendace-app-esh.onrender.com/subject/add",{
             method:"POST",
             headers:{
                 "Accept":"application/json",
@@ -33,7 +33,7 @@ const Main = () => {
         setClassToggle(!classToggle);
     }
     const getData = async ()=>{
-        const data = await fetch("https://attendance-tracker04.herokuapp.com/student",{
+        const data = await fetch("https://attendace-app-esh.onrender.com/student",{
             method:"GET",
             headers:{
                 Authorization:localStorage.getItem("token"),

@@ -6,7 +6,7 @@ import "../CSS/subjectcontainer.css"
 const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallback}) => {
   const [classToggle,setClassToggle] = useState(false);
   const missed = async()=>{
-    await fetch(`https://attendance-tracker04.herokuapp.com/missed/${id}`,{
+    await fetch(`https://attendace-app-esh.onrender.com/missed/${id}`,{
       method:"POST"
     })
     setClassToggle(!classToggle);
@@ -15,7 +15,7 @@ const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallba
   }
 
   const attended = async()=>{
-    await fetch(`https://attendance-tracker04.herokuapp.com/attend/${id}`,{
+    await fetch(`https://attendace-app-esh.onrender.com/attend/${id}`,{
       method:"POST"
     })
 
@@ -24,7 +24,7 @@ const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallba
   }
 
   const deleteSubject = async()=>{
-    await fetch(`https://attendance-tracker04.herokuapp.com/subject/${id}/delete`,{
+    await fetch(`https://attendace-app-esh.onrender.com/subject/${id}/delete`,{
       method:"DELETE"
     })
     parentCallback()

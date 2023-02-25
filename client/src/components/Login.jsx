@@ -23,7 +23,7 @@ function Login() {
         if(email==="" || password===""){
             return alert("Input Field Empty");
         }
-        const data = await fetch("https://attendance-tracker04.herokuapp.com/login",{
+        const data = await fetch("https://attendace-app-esh.onrender.com/login",{
             method:"POST",
             headers:{
                 "Accept":"application/json",

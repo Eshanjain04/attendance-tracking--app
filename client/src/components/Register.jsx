@@ -22,7 +22,7 @@ function Register() {
 
     const handleRegister = async (e)=>{
         e.preventDefault();
-        const data = await fetch("https://attendance-tracker04.herokuapp.com/register",{
+        const data = await fetch("https://attendace-app-esh.onrender.com/register",{
             method:"POST",
             headers:{
                 "Accept":"application/json",
