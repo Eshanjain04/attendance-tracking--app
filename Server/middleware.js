@@ -10,9 +10,9 @@ exports.requireLogin = (req,res,next) =>{
             req.user = decoded.data;
             next();
         }else{
-            res.json({message:"Not Authorized"})
+            res.json({status:false,message:"Not Authorized"})
         }
    }catch(e){
-        res.status(422).json({message:e.message});
+        res.status(422).json({status:false,message:e.message});
    }
 } 

@@ -33,12 +33,12 @@ router.post("/register" ,async(req,res)=>{
 
               res.status(200).json({token:token})
         }else{
-            res.status(422).json({message:"User Already Exists"});
+            res.status(422).json({status:true,message:"User Already Exists"});
         }
 
 
     }catch(e){
-        res.status(422).json({message:e.message});
+        res.status(422).json({status:false,message:e.message});
     }
     
 });
@@ -59,12 +59,12 @@ router.post("/login",async(req,res)=>{
                 data: userData._id
               }, secret);
 
-              res.status(200).json({token:token})
+              res.status(200).json({status:true,token:token})
         }else{
-            res.status(422).json({message:"Password Does not match"})
+            res.status(422).json({status:false,message:"Password Does not match"})
         }
     }else{
-        res.status(422).json({message:"User not Found"})
+        res.status(422).json({status:false,message:"User not Found"})
     }
 });
 

@@ -23,7 +23,7 @@ router.get("/list",async (req,res)=>{
             for(let i of subject_name){
                 finalArr.push(i);
             }
-            res.status(200).json({data:finalArr});
+            res.status(200).json({status:true,data:finalArr});
         })
     }
     catch(e){
@@ -34,18 +34,22 @@ router.get("/list",async (req,res)=>{
 });
 
 router.post("/add", async (req,res)=>{
+    let subjectName = req.body.subjectName
+    if(!subjectName){
+        return res.status(422).json({status:false,message:"please Enter Subject name"});
+    }
     try{
-        let sub = await subject.findOne({name:req.body.subjectName})
+        let sub = await subject.findOne({name:subjectName})
 
         if(sub){
             return res.status(422).json({message:"Subject Already Exists"});
         }
     
-        await subject.create({name:req.body.subjectName,attendance:0,percentage:"0%",totalClass:0,users:req.user});
-        res.status(201).json({message:"Created"})
+        await subject.create({name:subjectName,attendance:0,percentage:"0%",totalClass:0,users:req.user});
+        res.status(201).json({status:true,message:"Created"})
     }
     catch(e){
-        res.status(422).json({message:e.message});
+        res.status(422).json({status:false,message:e.message});
     }
 })
 
@@ -59,10 +63,10 @@ router.post("/attend/:id",async (req,res)=>{
         const updatedAttendance = previousAttendance + 1;
         const percentage = calculatepercent(updatedAttendance,totalClass);
         await subject.updateOne({_id:req.params.id},{$set:{attendance:updatedAttendance,percentage:percentage,totalClass:totalClass}});
-        res.status(200).json({message:"attended"})
+        res.status(200).json({status:true,message:"attended"})
     }
     catch(e){
-        res.status(422).json({message:e.message});
+        res.status(422).json({status:false,message:e.message});
     }
 
 })
@@ -75,20 +79,20 @@ router.post("/missed/:id",async (req,res)=>{
         const previousAttendance = data.attendance;
         const percentage = calculatepercent(previousAttendance,totalClass);
         await subject.updateOne({_id:req.params.id},{$set:{percentage:percentage,totalClass:totalClass}});
-        res.status(200).json({message:"Missed"})
+        res.status(200).json({status:true,message:"Missed"})
     }
     catch(e){
-        res.status(422).json({message:e.message});
+        res.status(422).json({status:false,message:e.message});
     }
 });
 
 router.delete("/:id/delete",async (req,res)=>{
     try{
         await subject.deleteOne({_id:req.params.id});
-        res.status(200).json({message:"Deleted Successfully"})
+        res.status(200).json({status:true,message:"Deleted Successfully"})
     }
     catch(e){
-        res.status(422).json({message:e.message});
+        res.status(422).json({status:false,message:e.message});
     }
 });
 
