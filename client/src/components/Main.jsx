@@ -23,20 +23,22 @@ const Main = () => {
             headers:{
                 "Accept":"application/json",
                 "Content-Type":"application/json",
-                Authorization:localStorage.getItem("token"),
+                Authorization:`Bearer ${localStorage.getItem("token")}`
             },
             body:JSON.stringify({subjectName:subject})
         });
         const res = await data.json();
+        alert(res.message)
+
         console.log(res.message);
         addSubjectRef.current.value = "";
         setClassToggle(!classToggle);
     }
     const getData = async ()=>{
-        const data = await fetch("https://attendace-app-esh.onrender.com/student",{
+        const data = await fetch("https://attendace-app-esh.onrender.com/subject/list",{
             method:"GET",
             headers:{
-                Authorization:localStorage.getItem("token"),
+                Authorization:`Bearer ${localStorage.getItem("token")}`,
             }
         })
 

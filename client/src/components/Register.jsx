@@ -22,7 +22,7 @@ function Register() {
 
     const handleRegister = async (e)=>{
         e.preventDefault();
-        const data = await fetch("https://attendace-app-esh.onrender.com/register",{
+        const data = await fetch("https://attendace-app-esh.onrender.com/user/register",{
             method:"POST",
             headers:{
                 "Accept":"application/json",

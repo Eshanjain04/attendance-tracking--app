@@ -5,28 +5,46 @@ import "../CSS/subjectcontainer.css"
 
 const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallback}) => {
   const [classToggle,setClassToggle] = useState(false);
+  const baseURL = "https://attendace-app-esh.onrender.com/subject"
   const missed = async()=>{
-    await fetch(`https://attendace-app-esh.onrender.com/missed/${id}`,{
-      method:"POST"
+    const data = await fetch(`${baseURL}/missed/${id}`,{
+      method:"POST",
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
+    }
     })
+    const res = await data.json();
+    alert(res.message)
     setClassToggle(!classToggle);
     parentCallback()
 
   }
 
   const attended = async()=>{
-    await fetch(`https://attendace-app-esh.onrender.com/attend/${id}`,{
-      method:"POST"
+    const data = await fetch(`${baseURL}/attend/${id}`,{
+      method:"POST",
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
+    }
     })
+
+    const res = await data.json();
+    alert(res.message)
 
     setClassToggle(classToggle);
     parentCallback()
   }
 
   const deleteSubject = async()=>{
-    await fetch(`https://attendace-app-esh.onrender.com/subject/${id}/delete`,{
-      method:"DELETE"
+    const data = await fetch(`${baseURL}/${id}/delete`,{
+      method:"DELETE",
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
+    }
     })
+    const res = await data.json();
+    alert(res.message)
+
     parentCallback()
   }
   return (
