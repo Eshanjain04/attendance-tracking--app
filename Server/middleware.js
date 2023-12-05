@@ -4,8 +4,7 @@ const secret = process.env.SECRET;
 
 exports.requireLogin = (req,res,next) =>{
    try{
-        const token = req.headers.Authorization;
-        console.log(token);
+        const token = req.headers.authorization.split(" ")[1];
         const decoded = jwt.verify(token,secret);
         if(decoded){
             req.user = decoded.data;
@@ -14,6 +13,6 @@ exports.requireLogin = (req,res,next) =>{
             res.json({message:"Not Authorized"})
         }
    }catch(e){
-        res.status(400).json({message:e.message});
+        res.status(422).json({message:e.message});
    }
 } 
