@@ -2,48 +2,30 @@ import React from 'react'
 import { useState } from 'react'
 import {RiDeleteBin3Line} from "react-icons/ri"
 import "../CSS/subjectcontainer.css"
+import { apiCall } from '../service';
 
 const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallback}) => {
   const [classToggle,setClassToggle] = useState(false);
   const baseURL = "https://attendace-app-esh.onrender.com/subject"
   const missed = async()=>{
-    const data = await fetch(`${baseURL}/missed/${id}`,{
-      method:"POST",
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`,
-    }
+    apiCall("POST", `${baseURL}/missed/${id}`,true,JSON.stringify({}),(res)=>{
     })
-    const res = await data.json();
-    alert(res.message)
     setClassToggle(!classToggle);
     parentCallback()
 
   }
 
-  const attended = async()=>{
-    const data = await fetch(`${baseURL}/attend/${id}`,{
-      method:"POST",
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`,
-    }
+  const attended = ()=>{
+    apiCall("POST", `${baseURL}/attend/${id}`,true,JSON.stringify({}),(res)=>{
     })
-
-    const res = await data.json();
-    alert(res.message)
 
     setClassToggle(classToggle);
     parentCallback()
   }
 
-  const deleteSubject = async()=>{
-    const data = await fetch(`${baseURL}/${id}/delete`,{
-      method:"DELETE",
-      headers:{
-        Authorization:`Bearer ${localStorage.getItem("token")}`,
-    }
+  const deleteSubject = ()=>{
+    apiCall("DELETE", `${baseURL}/${id}/delete`,true,JSON.stringify({}),(res)=>{
     })
-    const res = await data.json();
-    alert(res.message)
 
     parentCallback()
   }

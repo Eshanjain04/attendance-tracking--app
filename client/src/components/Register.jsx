@@ -12,6 +12,7 @@ from 'mdb-react-ui-kit';
 import "../CSS/Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { apiCall } from '../service';
 
 function Register() {
     const [firstName,setFirstName] = useState("");
@@ -22,22 +23,16 @@ function Register() {
 
     const handleRegister = async (e)=>{
         e.preventDefault();
-        const data = await fetch("https://attendace-app-esh.onrender.com/user/register",{
-            method:"POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({firstName,lastName,email,password})
-        })
-
-        const res = await data.json();
-        if(res.token){
+        let url = 'https://attendace-app-esh.onrender.com/user/register'
+        apiCall("POST",url,false,JSON.stringify({firstName,lastName,email,password}),(res)=>{
+          if(res.status && res.token){
             localStorage.setItem("token",res.token);
             navigate("/");
-        }else{
-            return alert(res.message);
-        }
+          }else{
+              return alert(res.message);
+          }
+        })
+
     }
   return (
     <MDBContainer fluid>

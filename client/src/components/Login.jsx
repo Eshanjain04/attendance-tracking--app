@@ -12,6 +12,7 @@ from 'mdb-react-ui-kit';
 import "../CSS/Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { apiCall } from '../service';
 
 function Login() {
     const [email,setEmail] = useState("")
@@ -23,24 +24,15 @@ function Login() {
         if(email==="" || password===""){
             return alert("Input Field Empty");
         }
-        const data = await fetch("https://attendace-app-esh.onrender.com/user/login",{
-            method:"POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({email,password})
-        })
-
-        const res = await data.json();
-        console.log(res);
-        if(res.token){
+        let url = 'https://attendace-app-esh.onrender.com/user/login'
+        apiCall("POST",url,false,JSON.stringify({email,password}),(res)=>{
+        if(res.status && res.token){
             localStorage.setItem("token",res.token);
-            console.log(res.token);
             navigate("/");
         }else{
             return alert(res.message);
         }
+        });
     }
   return (
     <MDBContainer fluid>

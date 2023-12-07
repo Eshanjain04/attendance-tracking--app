@@ -5,6 +5,7 @@ import SubjectContainer from './SubjectContainer';
 import Header from './Header';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { useRef } from 'react';
+import { apiCall } from '../service';
 
 const Main = () => {
     const [data,setData] = useState([]);
@@ -15,35 +16,22 @@ const Main = () => {
         setClassToggle(!classToggle);
     }
 
-    const addSubject = async (e)=>{
+    const addSubject =  (e)=>{
         e.preventDefault();
         const subject = addSubjectRef.current.value;
-        const data = await fetch("https://attendace-app-esh.onrender.com/subject/add",{
-            method:"POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-Type":"application/json",
-                Authorization:`Bearer ${localStorage.getItem("token")}`
-            },
-            body:JSON.stringify({subjectName:subject})
-        });
-        const res = await data.json();
-        alert(res.message)
-
-        console.log(res.message);
+        let url = "https://attendace-app-esh.onrender.com/subject/add";
+        apiCall("POST", url,true,JSON.stringify({subjectName:subject}),(res)=>{
+            alert(res.message)
+        })
         addSubjectRef.current.value = "";
         setClassToggle(!classToggle);
     }
-    const getData = async ()=>{
-        const data = await fetch("https://attendace-app-esh.onrender.com/subject/list",{
-            method:"GET",
-            headers:{
-                Authorization:`Bearer ${localStorage.getItem("token")}`,
-            }
+    const getData =  ()=>{
+        let url = "https://attendace-app-esh.onrender.com/subject/list";
+        apiCall("GET", url,true,{},(res)=>{
+            console.log(res);
+            setData(res.data)
         })
-
-        const res = await data.json();
-        setData(res.data)
     }
     useEffect(()=>{
         const token = localStorage.getItem("token");
@@ -52,7 +40,7 @@ const Main = () => {
         }else{
             getData();
         }
-    },[classToggle])
+    },[classToggle,data])
   return (
     <div>
         <Header/>
