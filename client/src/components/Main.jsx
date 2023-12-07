@@ -40,7 +40,7 @@ const Main = () => {
         }else{
             getData();
         }
-    },[classToggle,data])
+    },[classToggle])
   return (
     <div>
         <Header/>

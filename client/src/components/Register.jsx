@@ -25,11 +25,11 @@ function Register() {
         e.preventDefault();
         let url = 'https://attendace-app-esh.onrender.com/user/register'
         apiCall("POST",url,false,JSON.stringify({firstName,lastName,email,password}),(res)=>{
-          if(res.status && res.token){
+          if(res.token){
             localStorage.setItem("token",res.token);
             navigate("/");
           }else{
-              return alert(res.message);
+            return alert(res.message);
           }
         })
 
