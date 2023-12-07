@@ -39,7 +39,7 @@ router.post("/add", async (req,res)=>{
         return res.status(422).json({status:false,message:"please Enter Subject name"});
     }
     try{
-        let sub = await subject.findOne({name:subjectName})
+        let sub = await subject.findOne({users:req.user,name:subjectName})
 
         if(sub){
             return res.status(422).json({message:"Subject Already Exists"});
