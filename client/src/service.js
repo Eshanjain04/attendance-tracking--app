@@ -37,3 +37,5 @@ export const apiCall = (method,url,headerWithAuth,body,cb) =>{
         .catch(err=>cb(err))
     }
 }
+
+export const baseUrl = "https://attendace-app-esh.onrender.com/";

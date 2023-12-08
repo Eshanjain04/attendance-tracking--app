@@ -2,13 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import {RiDeleteBin3Line} from "react-icons/ri"
 import "../CSS/subjectcontainer.css"
-import { apiCall } from '../service';
+import { apiCall,baseUrl } from '../service';
 
 const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallback}) => {
   const [classToggle,setClassToggle] = useState(false);
-  const baseURL = "https://attendace-app-esh.onrender.com/subject"
   const missed = async()=>{
-    apiCall("POST", `${baseURL}/missed/${id}`,true,JSON.stringify({}),(res)=>{
+    apiCall("POST", `${baseUrl}subject/missed/${id}`,true,JSON.stringify({}),(res)=>{
     })
     setClassToggle(!classToggle);
     parentCallback()
@@ -16,7 +15,7 @@ const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallba
   }
 
   const attended = ()=>{
-    apiCall("POST", `${baseURL}/attend/${id}`,true,JSON.stringify({}),(res)=>{
+    apiCall("POST", `${baseUrl}subject/attend/${id}`,true,JSON.stringify({}),(res)=>{
     })
 
     setClassToggle(classToggle);
@@ -24,7 +23,7 @@ const SubjectContainer = ({id,name,attendance,totalClass,percentage,parentCallba
   }
 
   const deleteSubject = ()=>{
-    apiCall("DELETE", `${baseURL}/${id}/delete`,true,JSON.stringify({}),(res)=>{
+    apiCall("DELETE", `${baseUrl}subject/${id}/delete`,true,JSON.stringify({}),(res)=>{
     })
 
     parentCallback()

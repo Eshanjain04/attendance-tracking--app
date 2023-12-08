@@ -12,7 +12,7 @@ from 'mdb-react-ui-kit';
 import "../CSS/Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { apiCall } from '../service';
+import { apiCall,baseUrl } from '../service';
 
 function Register() {
     const [firstName,setFirstName] = useState("");
@@ -23,7 +23,7 @@ function Register() {
 
     const handleRegister = async (e)=>{
         e.preventDefault();
-        let url = 'https://attendace-app-esh.onrender.com/user/register'
+        let url = `${baseUrl}user/register`
         apiCall("POST",url,false,JSON.stringify({firstName,lastName,email,password}),(res)=>{
           if(res.token){
             localStorage.setItem("token",res.token);

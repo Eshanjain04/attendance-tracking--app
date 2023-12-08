@@ -12,7 +12,7 @@ from 'mdb-react-ui-kit';
 import "../CSS/Login.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { apiCall } from '../service';
+import { apiCall,baseUrl } from '../service';
 
 function Login() {
     const [email,setEmail] = useState("")
@@ -24,7 +24,7 @@ function Login() {
         if(email==="" || password===""){
             return alert("Input Field Empty");
         }
-        let url = 'https://attendace-app-esh.onrender.com/user/login'
+        let url = `${baseUrl}user/login`
         apiCall("POST",url,false,JSON.stringify({email,password}),(res)=>{
         if(res.status && res.token){
             localStorage.setItem("token",res.token);
